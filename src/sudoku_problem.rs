@@ -11,6 +11,12 @@ impl SudokuProblem {
             grid: grid.map(|row| row.map(|cell| cell.map(|v| v - 1))),
         }
     }
+
+    pub fn from_completed(grid: [[u8; 4]; 4]) -> Self {
+        Self {
+            grid: grid.map(|row| row.map(|cell| Some(cell - 1))),
+        }
+    }
 }
 
 impl Display for SudokuProblem {
