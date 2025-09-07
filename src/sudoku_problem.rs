@@ -28,7 +28,9 @@ impl Display for SudokuProblem {
                     None => write!(f, "_")?,
                 }
             }
-            writeln!(f)?
+            if y != 3 {
+                writeln!(f)?;
+            }
         }
         Ok(())
     }
