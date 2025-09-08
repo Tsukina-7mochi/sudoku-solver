@@ -1,6 +1,6 @@
 use std::collections::BinaryHeap;
 
-use super::SudokuProblem;
+use super::{PartialSudoku, Sudoku};
 
 mod cell_node;
 mod grid;
@@ -22,7 +22,7 @@ fn adjacent_cells(index: usize) -> impl Iterator<Item = usize> {
     col_iter.chain(row_iter).chain(block_iter)
 }
 
-pub fn solve(sudoku: SudokuProblem) -> Option<[[u8; 4]; 4]> {
+pub fn solve(sudoku: PartialSudoku<4>) -> Option<Sudoku<4>> {
     let mut grid = Grid::full();
     let mut queue = BinaryHeap::new();
     let mut settled = [false; 16];
@@ -106,5 +106,5 @@ pub fn solve(sudoku: SudokuProblem) -> Option<[[u8; 4]; 4]> {
         result[y][x] = value + 1;
     }
 
-    Some(result)
+    Some(result.into())
 }

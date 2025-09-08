@@ -1,6 +1,6 @@
 use std::io::Read;
 
-use sudoku::SudokuProblem;
+use sudoku::PartialSudoku;
 
 fn parse_grid(s: &str) -> [[Option<u8>; 4]; 4] {
     let split: Vec<Vec<_>> = s.split('\n').map(|line| line.chars().collect()).collect();
@@ -22,29 +22,24 @@ fn parse_grid(s: &str) -> [[Option<u8>; 4]; 4] {
 }
 
 fn main() {
-    // let problem = SudokuProblem::new([
+    // let problem = PartialSudoku::<4>::new([
     //     [Some(1), None, Some(3), Some(4)],
     //     [None, Some(4), None, Some(1)],
     //     [None, None, None, None],
     //     [Some(4), None, Some(1), None],
     // ]);
+    // println!("Problem:");
+    // println!("{problem}");
 
     let mut stdin = std::io::stdin();
     let mut buffer = String::new();
     stdin.read_to_string(&mut buffer).unwrap();
 
-    let problem = SudokuProblem::new(parse_grid(&buffer));
+    let problem = PartialSudoku::new(parse_grid(&buffer));
 
-    println!("Problem:");
-    println!("{problem}");
-
-    println!();
-
-    if let Some(answer) = sudoku::solver::solve(problem) {
-        let answer = SudokuProblem::from_completed(answer);
-        println!("Answer:");
+    if let Some(answer) = sudoku::solve(problem) {
         println!("{answer}")
     } else {
-        println!("The problem could has no solution.")
+        println!("no solution")
     }
 }

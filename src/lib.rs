@@ -1,4 +1,7 @@
-pub mod solver;
-mod sudoku_problem;
+mod partial_sudoku;
+mod solver;
+mod sudoku;
 
-pub use sudoku_problem::SudokuProblem;
+pub use partial_sudoku::PartialSudoku;
+pub use solver::solve;
+pub use sudoku::Sudoku;
